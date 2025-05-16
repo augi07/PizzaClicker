@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'StatsContent.dart';
 
 
 class MyHomePage extends StatefulWidget {
@@ -7,6 +10,7 @@ class MyHomePage extends StatefulWidget {
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
+
 }
 
 class _MyHomePageState extends State<MyHomePage> {
@@ -14,12 +18,25 @@ class _MyHomePageState extends State<MyHomePage> {
   int currentPageIndex = 0;
   double _imageSize = 300;
 
-  
-
-  void incrementCounter() {
-      setState(() {
-        _counter++;
-      });
+  @override
+  void initState() {
+    super.initState();
+    _loadCounter();
+  } 
+ 
+  Future<void> _loadCounter() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _counter = (prefs.getInt('counter') ?? 0);
+    });
+  }
+ 
+  Future<void> incrementCounter() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _counter = (prefs.getInt('counter') ?? 0) + 1;
+      prefs.setInt('counter', _counter);
+    });
   }
 
   @override
@@ -33,7 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
             child: NavigationBarTheme(
               data: NavigationBarThemeData(
                 labelTextStyle: WidgetStateProperty.all(
-                  TextStyle(color: Colors.white), // Change this to any color you want
+                  TextStyle(color: Colors.white),
                 ),
               ),
               child: NavigationBar(
@@ -42,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 height: 60,
                 selectedIndex: currentPageIndex,
                 onDestinationSelected: (int index) {
-                  setState(() {
+                  setState(() { 
                     currentPageIndex = index;
                   });
                 },
@@ -72,7 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
         // Home page
         Stack(
           children: [
-            /// Hier wird es oben zentriert!
+            // Hier wird es oben zentriert!
             Align(
               alignment: Alignment.topCenter,
               child: Padding(
@@ -106,7 +123,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   onTapUp: (_) {
                     setState(() {
                       _imageSize = 300;
-                      _counter++;
+                      incrementCounter();
                     });
                   },
                   onTapCancel: () {
@@ -123,10 +140,27 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
               ),
+            
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 120.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    const Text(
+                      '1 pizzas per click',
+                      style: TextStyle(fontSize: 15, fontWeight: FontWeight.w400, color: Colors.white60 ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
 
-        /// Stats Page (NEU HINZUGEFÜGT!)
+        // Stats Page
+        //home: StatsContent(title: '',),
         const Center(
           child: Text(
             'Stats Page',
@@ -134,7 +168,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
 
-                // Info Page
+        // Info Page
         const Center(
           child: Text(
             'Info Page',

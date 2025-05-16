@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class InfoContent extends StatelessWidget {
+class StatsContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Text('Stats Page'),
       color: Colors.white,
+      child: Text('Stats page test'),
     );
   }
 }
