@@ -30,34 +30,42 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(4.0),
-          child: NavigationBar(
-            indicatorColor: Colors.transparent,
-            height: 60,
-            selectedIndex: currentPageIndex,
-            onDestinationSelected: (int index) {
-              setState(() {
-                currentPageIndex = index;
-              });
-            },
-            destinations: const <NavigationDestination>[
-              NavigationDestination(
-                icon: Icon(Icons.home),
-                label: 'Home',
+            child: NavigationBarTheme(
+              data: NavigationBarThemeData(
+                labelTextStyle: WidgetStateProperty.all(
+                  TextStyle(color: Colors.white), // Change this to any color you want
+                ),
               ),
-              NavigationDestination(
-                icon: Icon(Icons.bar_chart),
-                label: 'stats',
+              child: NavigationBar(
+                indicatorColor: Colors.transparent,
+                backgroundColor: Color.fromARGB(255, 48, 48, 48),
+                height: 60,
+                selectedIndex: currentPageIndex,
+                onDestinationSelected: (int index) {
+                  setState(() {
+                    currentPageIndex = index;
+                  });
+                },
+                destinations: const <NavigationDestination>[
+                  NavigationDestination(
+                    icon: Icon(Icons.home, color: Colors.white,),
+                    label: 'Home',
+                  ),
+                  NavigationDestination(
+                    icon: Icon(Icons.bar_chart, color: Colors.white,),
+                    label: 'stats',
+                  ),
+                  NavigationDestination(
+                    icon: Icon(Icons.info, color: Colors.white,),
+                    label: 'Info',
+                  ),
+                  NavigationDestination(
+                    icon: Icon(Icons.settings, color: Colors.white,),
+                    label: 'Settins',
+                  ),
+                ],
               ),
-              NavigationDestination(
-                icon: Icon(Icons.info),
-                label: 'Info',
-              ),
-              NavigationDestination(
-                icon: Icon(Icons.settings),
-                label: 'Settins',
-              ),
-            ],
-          ),
+            ),
         ),
       ),
       body: <Widget>[
