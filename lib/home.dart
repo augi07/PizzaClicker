@@ -1,7 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'Navbar.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -18,7 +16,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   
 
-  void _incrementCounter() {
+  void incrementCounter() {
       setState(() {
         _counter++;
       });
@@ -31,8 +29,9 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
         bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(5.0),
+          preferredSize: const Size.fromHeight(4.0),
           child: NavigationBar(
+            indicatorColor: Colors.transparent,
             height: 60,
             selectedIndex: currentPageIndex,
             onDestinationSelected: (int index) {
@@ -46,16 +45,16 @@ class _MyHomePageState extends State<MyHomePage> {
                 label: 'Home',
               ),
               NavigationDestination(
+                icon: Icon(Icons.bar_chart),
+                label: 'stats',
+              ),
+              NavigationDestination(
                 icon: Icon(Icons.info),
                 label: 'Info',
               ),
               NavigationDestination(
                 icon: Icon(Icons.settings),
-                label: 'Settings',
-              ),
-              NavigationDestination(
-                icon: Icon(Icons.bar_chart),
-                label: 'Stats',
+                label: 'Settins',
               ),
             ],
           ),
@@ -75,7 +74,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: <Widget>[
                     const Text(
                       'TOTAL PIZZAS',
-                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.w400, color: CupertinoColors.inactiveGray ),
+                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.w400, color: Colors.white70 ),
                     ),
                     Text(
                       '$_counter',
@@ -119,7 +118,15 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
 
-        // Info Page
+        /// Stats Page (NEU HINZUGEFÜGT!)
+        const Center(
+          child: Text(
+            'Stats Page',
+            style: TextStyle(fontSize: 24),
+          ),
+        ),
+
+                // Info Page
         const Center(
           child: Text(
             'Info Page',
@@ -127,6 +134,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
 
+        
         // Settings Page
         const Center(
           child: Text(
@@ -135,13 +143,6 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
 
-        /// Stats Page (NEU HINZUGEFÜGT!)
-        const Center(
-          child: Text(
-            'Stats Page',
-            style: TextStyle(fontSize: 24),
-          ),
-        ),
       ][currentPageIndex],
 
       // FloatingActionButtonLocation entfernt, da er jetzt im Stack ist
