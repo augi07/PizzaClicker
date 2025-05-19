@@ -3,17 +3,111 @@ import 'package:flutter/material.dart';
 class InfoContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 200, height: 50,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(20)),
-        color: Colors.white,
-      ),
-      child: Text(
-        textAlign: TextAlign.center,
-        'Info page',
-        style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.black ),
-        
+    return Center(
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              alignment: Alignment.topLeft,
+              margin: EdgeInsets.only(top: 20),
+              width: 340, height: 200,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+                color: Colors.white,
+              ),
+              padding: const EdgeInsets.only(left: 10.0, top: 8.0,),
+
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    'About Pizza Clicker\n',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.black, ),
+                  ),
+                  Text(
+                    'Pizza Clicker is an idle game where you click on a pizza to earn more pizzas. Use your pizzas to buy upgrades and increase your pizza production!\nVersion: 1.0.0',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: Colors.black, ),
+                  ),
+                ],
+              ),
+            ),
+
+            Container(
+              alignment: Alignment.topLeft,
+              margin: EdgeInsets.only(top: 20),
+              width: 340, height: 220,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+                color: Colors.white,
+              ),
+              padding: const EdgeInsets.only(left: 10.0, top: 8.0,),
+
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    'About Upgrades\n',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.black, ),
+                  ),
+                  Text(
+                    '• Double Click: Doubles the number of pizzas you get per click \n• Auto Clicker: Automatically gives you 1 pizza per second \n• Golden Pizza: Triples the number of pizzas you get per click',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: Colors.black, ),
+                  ),
+                ],
+              ),
+            ),
+
+            Container(
+              alignment: Alignment.topCenter,
+              margin: EdgeInsets.only(top: 20),
+              width: 340, height: 200,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+                color: Colors.white,
+              ),
+              padding: const EdgeInsets.only(left: 10.0, top: 8.0,),
+
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    'Reach out to me',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.black, ),
+                  ),
+                  Text(
+                    'About Pizza Clicker',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: Colors.black, ),
+                  ),
+                ],
+              ),
+            ),
+
+            Container(
+              alignment: Alignment.topCenter,
+              margin: EdgeInsets.only(top: 20),
+              width: 340, height: 200,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+                color: Colors.white,
+              ),
+              padding: const EdgeInsets.only(left: 10.0, top: 8.0,),
+
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    'Documetation',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.black, ),
+                  ),
+                  Text(
+                    'About Pizza Clicker',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: Colors.black, ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

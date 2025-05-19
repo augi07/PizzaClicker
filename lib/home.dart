@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'StatsContent.dart';
+import 'InfoContent.dart';
+import 'SettingsContent.dart';
 
 
 class MyHomePage extends StatefulWidget {
@@ -17,6 +19,12 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   int currentPageIndex = 0;
   double _imageSize = 300;
+
+  final List<Widget> widgetOptions = [
+    StatsContent(),
+    InfoContent(),
+    SettingsContent(onReset: () {  },),
+  ];
 
   @override
   void initState() {
@@ -89,7 +97,6 @@ class _MyHomePageState extends State<MyHomePage> {
         // Home page
         Stack(
           children: [
-            // Hier wird es oben zentriert!
             Align(
               alignment: Alignment.topCenter,
               child: Padding(
@@ -136,7 +143,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     curve: Curves.easeInOut,
                     height: _imageSize,
                     width: _imageSize,
-                    child: Image.asset('Images/Pizza.png'),
+                    child: Image.asset('assets/Pizza.png'),
                   ),
                 ),
               ),
@@ -160,29 +167,16 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
 
         // Stats Page
-        //home: StatsContent(title: '',),
-        const Center(
-          child: Text(
-            'Stats Page',
-            style: TextStyle(fontSize: 24),
-          ),
+        StatsContent(
         ),
 
         // Info Page
-        const Center(
-          child: Text(
-            'Info Page',
-            style: TextStyle(fontSize: 24),
-          ),
+        InfoContent(
         ),
 
-        
         // Settings Page
-        const Center(
-          child: Text(
-            'Settings Page',
-            style: TextStyle(fontSize: 24),
-          ),
+        SettingsContent(
+          onReset: _loadCounter,
         ),
 
       ][currentPageIndex],
