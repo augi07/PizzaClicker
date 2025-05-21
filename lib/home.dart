@@ -16,6 +16,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  int _totalPizzas = 0;
+  int _pizzasPerClick = 1;
   int _counter = 0;
   int currentPageIndex = 0;
   double _imageSize = 300;
@@ -36,15 +38,25 @@ class _MyHomePageState extends State<MyHomePage> {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
       _counter = (prefs.getInt('counter') ?? 0);
+      _totalPizzas = prefs.getInt('totalPizzas') ?? 0;
+      _pizzasPerClick = prefs.getInt('pizzasPerClick') ?? 1;
     });
+  }
+
+  Future<void> _saveGame() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('totalPizzas', _totalPizzas);
+    await prefs.setInt('pizzasPerClick', _pizzasPerClick);
   }
  
   Future<void> incrementCounter() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
       _counter = (prefs.getInt('counter') ?? 0) + 1;
+      _totalPizzas += _pizzasPerClick;
       prefs.setInt('counter', _counter);
     });
+    await _saveGame();
   }
 
   @override
@@ -66,8 +78,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 backgroundColor: Color.fromARGB(255, 48, 48, 48),
                 height: 60,
                 selectedIndex: currentPageIndex,
-                onDestinationSelected: (int index) {
-                  setState(() { 
+                onDestinationSelected: (int index) async {
+                  if (index == 0) {
+                    await _loadCounter();
+                  }
+                  setState(() {
                     currentPageIndex = index;
                   });
                 },
@@ -109,7 +124,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       style: TextStyle(fontSize: 24, fontWeight: FontWeight.w400, color: Colors.white70 ),
                     ),
                     Text(
-                      '$_counter',
+                      '$_totalPizzas',
                       style: TextStyle(fontSize: 40, fontWeight: FontWeight.w900, ),
                     ),
                   ],
@@ -155,9 +170,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    const Text(
-                      '1 pizzas per click',
-                      style: TextStyle(fontSize: 15, fontWeight: FontWeight.w400, color: Colors.white60 ),
+                    Text(
+                      '$_pizzasPerClick pizzas per click',
+                      style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w400, color: Colors.white60),
                     ),
                   ],
                 ),

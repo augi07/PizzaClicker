@@ -10,7 +10,7 @@ class InfoContent extends StatelessWidget {
             Container(
               alignment: Alignment.topLeft,
               margin: EdgeInsets.only(top: 20),
-              width: 340, height: 200,
+              width: 320, height: 200,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(10)),
                 color: Colors.white,
@@ -35,7 +35,7 @@ class InfoContent extends StatelessWidget {
             Container(
               alignment: Alignment.topLeft,
               margin: EdgeInsets.only(top: 20),
-              width: 340, height: 220,
+              width: 320, height: 220,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(10)),
                 color: Colors.white,
@@ -60,7 +60,7 @@ class InfoContent extends StatelessWidget {
             Container(
               alignment: Alignment.topCenter,
               margin: EdgeInsets.only(top: 20),
-              width: 340, height: 200,
+              width: 320, height: 200,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(10)),
                 color: Colors.white,
@@ -85,7 +85,7 @@ class InfoContent extends StatelessWidget {
             Container(
               alignment: Alignment.topCenter,
               margin: EdgeInsets.only(top: 20),
-              width: 340, height: 200,
+              width: 320, height: 200,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(10)),
                 color: Colors.white,

@@ -1,28 +1,171 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class StatsContent extends StatelessWidget {
+
+class StatsContent extends StatefulWidget {
+  const StatsContent({Key? key}) : super(key: key);
+
   @override
-  Widget build(BuildContext context) {
-    return Center(
+  State<StatsContent> createState() => _StatsContentState();
+}
+
+class _StatsContentState extends State<StatsContent> {
+  int totalPizzas = 0;
+  int totalClicks = 0;
+  int pizzasPerClick = 1;
+  int highestCombo = 0;
+  int upgradesPurchased = 0;
+
+
+  Future<void> loadPrefs() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      totalPizzas = prefs.getInt('totalPizzas') ?? 0;
+      pizzasPerClick = prefs.getInt('pizzasPerClick') ?? 1;
+      upgradesPurchased = prefs.getInt('upgradesPurchased') ?? 0;
+    });
+  }
+
+  Future<void> buyUpgrade(int cost, int type) async {
+    if (totalPizzas < cost) return;
+
+    final prefs = await SharedPreferences.getInstance();
+    totalPizzas -= cost;
+    upgradesPurchased++;
+
+    switch (type) {
+      case 1: // Double Click (+2 per upgrade)
+        pizzasPerClick += 1;
+      case 2: // Golden Pizza (+10 per click)
+        pizzasPerClick += 10;
+      case 3: // Super Click (+ 20 per click)
+        pizzasPerClick += 20;
+      case 4: // Ultra Multiplier (×2)
+        pizzasPerClick *= 2;
+      case 5: // Ultra Multiplier (×15)
+        pizzasPerClick *= 15;
+      case 6: // Ultra Multiplier (×100)
+        pizzasPerClick *= 100;
+    }
+
+    await prefs.setInt('totalPizzas', totalPizzas);
+    await prefs.setInt('pizzasPerClick', pizzasPerClick);
+    await prefs.setInt('upgradesPurchased', upgradesPurchased);
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    loadPrefs();
+  }
+
+  Widget statCard(String title, Map<String, dynamic> stats) {
+    return Container(
+      margin: const EdgeInsets.only(top: 20),
+      width: 320,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: Colors.white,
+      ),
+      padding: const EdgeInsets.all(10),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            alignment: Alignment.center,
-            margin: EdgeInsets.only(top: 20),
-            width: 400, height: 50,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(20)),
-              color: Colors.white,
+          Text(title, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
+          ...stats.entries.map((e) => Padding(
+                padding: const EdgeInsets.only(top: 6),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(e.key, style: const TextStyle(fontSize: 16)),
+                    Text(e.value.toString(), style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                  ],
+                ),
+              )),
+        ],
+      ),
+    );
+  }
+
+  Widget upgradeOption(String name, String desc, int cost, int type) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 8),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Text(name, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+            Text(desc, style: const TextStyle(fontSize: 14)),
+          ]),
+          ElevatedButton(
+            onPressed: () => buyUpgrade(cost, type),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color.fromARGB(255, 213, 225, 255),
+              foregroundColor: Colors.black,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
             ),
-            child: Text(
-              'Stats page',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.black ),
-              
-            ),
+            child: Text('Buy: $cost 🍕'),
           ),
         ],
       ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<SharedPreferences>(
+      future: SharedPreferences.getInstance(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return const Center(child: CircularProgressIndicator());
+        }
+
+        final prefs = snapshot.data!;
+        totalPizzas = prefs.getInt('totalPizzas') ?? 0;
+
+        return SafeArea(
+          child: Center(
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  statCard("Pizza Stats", {
+                    "Total Pizzas": totalPizzas,
+                    "Total Clicks": totalClicks,
+                    "Pizzas per Click": pizzasPerClick,
+                  }),
+                  statCard("Achievements", {
+                    "Highest Combo": highestCombo,
+                    "Upgrades Purchased": upgradesPurchased,
+                  }),
+                  Container(
+                    margin: const EdgeInsets.only(top: 20),
+                    width: 320,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.white,
+                    ),
+                    padding: const EdgeInsets.all(10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Text("Upgrades", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
+                        upgradeOption("Double Click", "+1 per click", 50, 1),
+                        upgradeOption("Golden Pizza", "+10 per click", 500, 2),
+                        upgradeOption("Super Click", "+20 per click", 10000, 3),
+                        upgradeOption("Mega Multiplier", "x2 per click", 100000, 4),
+                        upgradeOption("Ultra Multiplier", "x15 per click", 200000, 5),
+                        upgradeOption("Clickstorm", "x100 per click", 9999999, 6),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }
