@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
 
 import 'StatsContent.dart';
 import 'InfoContent.dart';
 import 'SettingsContent.dart';
+import 'app_settings.dart';
 
 
 class MyHomePage extends StatefulWidget {
@@ -144,30 +146,44 @@ class _MyHomePageState extends State<MyHomePage> {
             if (currentPageIndex == 0)
               Align(
                 alignment: Alignment.center,
-                child: GestureDetector(
-                  onTapDown: (_) {
-                    setState(() {
-                      _imageSize = 295;
-                    });
+                child: Consumer<AppSettings>(
+                  builder: (context, settings, _) {
+                    return GestureDetector(
+                      onTapDown: (_) {
+                        if (settings.animationsEnabled) {
+                          setState(() {
+                            _imageSize = 295;
+                          });
+                        }
+                      },
+                      onTapUp: (_) {
+                        setState(() {
+                          _imageSize = 300;
+                          incrementCounter();
+                        });
+                      },
+                      onTapCancel: () {
+                        if (settings.animationsEnabled) {
+                          setState(() {
+                            _imageSize = 300;
+                          });
+                        }
+                      },
+                      child: settings.animationsEnabled
+                          ? AnimatedContainer(
+                              duration: Duration(milliseconds: 100),
+                              curve: Curves.easeInOut,
+                              height: _imageSize,
+                              width: _imageSize,
+                              child: Image.asset('assets/Pizza.png'),
+                            )
+                          : Container(
+                              height: _imageSize,
+                              width: _imageSize,
+                              child: Image.asset('assets/Pizza.png'),
+                            ),
+                    );
                   },
-                  onTapUp: (_) {
-                    setState(() {
-                      _imageSize = 300;
-                      incrementCounter();
-                    });
-                  },
-                  onTapCancel: () {
-                    setState(() {
-                      _imageSize = 300;
-                    });
-                  },
-                  child: AnimatedContainer(
-                    duration: Duration(milliseconds: 100),
-                    curve: Curves.easeInOut,
-                    height: _imageSize,
-                    width: _imageSize,
-                    child: Image.asset('assets/Pizza.png'),
-                  ),
                 ),
               ),
             
