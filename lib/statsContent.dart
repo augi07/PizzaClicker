@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 class StatsContent extends StatefulWidget {
   const StatsContent({Key? key}) : super(key: key);
 
@@ -15,7 +14,6 @@ class _StatsContentState extends State<StatsContent> {
   int pizzasPerClick = 1;
   int highestCombo = 0;
   int upgradesPurchased = 0;
-
 
   Future<void> loadPrefs() async {
     final prefs = await SharedPreferences.getInstance();
@@ -34,17 +32,17 @@ class _StatsContentState extends State<StatsContent> {
     upgradesPurchased++;
 
     switch (type) {
-      case 1: // Double Click (+2 per upgrade)
+      case 1:
         pizzasPerClick += 1;
-      case 2: // Golden Pizza (+10 per click)
+      case 2:
         pizzasPerClick += 10;
-      case 3: // Super Click (+ 20 per click)
+      case 3:
         pizzasPerClick += 20;
-      case 4: // Ultra Multiplier (×2)
+      case 4:
         pizzasPerClick *= 2;
-      case 5: // Ultra Multiplier (×15)
+      case 5:
         pizzasPerClick *= 15;
-      case 6: // Ultra Multiplier (×100)
+      case 6:
         pizzasPerClick *= 100;
     }
 
@@ -61,25 +59,33 @@ class _StatsContentState extends State<StatsContent> {
   }
 
   Widget statCard(String title, Map<String, dynamic> stats) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final textColor = isDark ? Colors.white : Colors.black;
+
     return Container(
       margin: const EdgeInsets.only(top: 20),
       width: 320,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: Colors.white,
+        color: isDark ? Colors.grey[850] : Colors.white,
       ),
       padding: const EdgeInsets.all(10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
+          Text(title,
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: textColor)),
           ...stats.entries.map((e) => Padding(
                 padding: const EdgeInsets.only(top: 6),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(e.key, style: const TextStyle(fontSize: 16)),
-                    Text(e.value.toString(), style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                    Text(e.key,
+                        // ignore: deprecated_member_use
+                        style: TextStyle(fontSize: 16, color: textColor.withOpacity(0.8))),
+                    Text(e.value.toString(),
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold, color: textColor)),
                   ],
                 ),
               )),
@@ -89,14 +95,22 @@ class _StatsContentState extends State<StatsContent> {
   }
 
   Widget upgradeOption(String name, String desc, int cost, int type) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Padding(
       padding: const EdgeInsets.only(top: 8),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text(name, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
-            Text(desc, style: const TextStyle(fontSize: 14)),
+            Text(name,
+                style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: isDark ? Colors.white : Colors.black)),
+            Text(desc,
+                style: TextStyle(
+                    fontSize: 14, color: isDark ? Colors.white70 : Colors.black87)),
           ]),
           ElevatedButton(
             onPressed: () => buyUpgrade(cost, type),
@@ -114,6 +128,8 @@ class _StatsContentState extends State<StatsContent> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return FutureBuilder<SharedPreferences>(
       future: SharedPreferences.getInstance(),
       builder: (context, snapshot) {
@@ -144,13 +160,17 @@ class _StatsContentState extends State<StatsContent> {
                     width: 320,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      color: Colors.white,
+                      color: isDark ? Colors.grey[850] : Colors.white,
                     ),
                     padding: const EdgeInsets.all(10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const Text("Upgrades", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
+                        Text("Upgrades",
+                            style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                                color: isDark ? Colors.white : Colors.black)),
                         upgradeOption("Double Click", "+1 per click", 50, 1),
                         upgradeOption("Golden Pizza", "+10 per click", 500, 2),
                         upgradeOption("Super Click", "+20 per click", 10000, 3),

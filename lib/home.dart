@@ -119,13 +119,21 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    const Text(
+                    Text(
                       'TOTAL PIZZAS',
-                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.w400, color: Colors.white70 ),
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.w400,
+                        color: Theme.of(context).brightness == Brightness.dark ? Colors.white70 : Colors.black54,
+                      ),
                     ),
                     Text(
                       '$_totalPizzas',
-                      style: TextStyle(fontSize: 40, fontWeight: FontWeight.w900, ),
+                      style: TextStyle(
+                        fontSize: 40,
+                        fontWeight: FontWeight.w900,
+                        color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black,
+                      ),
                     ),
                   ],
                 ),
@@ -172,7 +180,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: <Widget>[
                     Text(
                       '$_pizzasPerClick pizzas per click',
-                      style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w400, color: Colors.white60),
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w400,
+                        color: Theme.of(context).brightness == Brightness.dark ? Colors.white60 : Colors.black54,
+                      ),
                     ),
                   ],
                 ),

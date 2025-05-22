@@ -1,25 +1,44 @@
 import 'package:flutter/material.dart';
-
+import 'package:provider/provider.dart';
+import 'app_settings.dart';
 import 'home.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final settings = AppSettings();
+  await settings.loadSettings();
+
+  runApp(MyApp(settings));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final AppSettings settings;
 
-  // This widget is the root of your application.
+  const MyApp(this.settings, {super.key});
+
   @override
   Widget build(BuildContext context) {
-      return MaterialApp(
-        title: 'Flutter Demo',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-          scaffoldBackgroundColor: Color.fromARGB(255, 212, 176, 76)
-        ),
-        home: MyHomePage(title: '',),
-      );
-    }
+    return ChangeNotifierProvider.value(
+      value: settings,
+      child: Consumer<AppSettings>(
+        builder: (context, settings, _) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData.light(),
+            darkTheme: ThemeData.dark(),
+            themeMode: settings.isDarkMode ? ThemeMode.dark : ThemeMode.light,
+            builder: (context, child) {
+              return settings.animationsEnabled
+                  ? child!
+                  : MediaQuery(
+                      data: MediaQuery.of(context).copyWith(disableAnimations: true),
+                      child: child!,
+                    );
+            },
+            home: const MyHomePage(title: 'Pizza Clicker'),
+          );
+        },
+      ),
+    );
+  }
 }
