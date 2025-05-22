@@ -10,9 +10,7 @@ class StatsContent extends StatefulWidget {
 
 class _StatsContentState extends State<StatsContent> {
   int totalPizzas = 0;
-  int totalClicks = 0;
   int pizzasPerClick = 1;
-  int highestCombo = 0;
   int upgradesPurchased = 0;
 
   Future<void> loadPrefs() async {
@@ -148,11 +146,9 @@ class _StatsContentState extends State<StatsContent> {
                 children: [
                   statCard("Pizza Stats", {
                     "Total Pizzas": totalPizzas,
-                    "Total Clicks": totalClicks,
                     "Pizzas per Click": pizzasPerClick,
                   }),
                   statCard("Achievements", {
-                    "Highest Combo": highestCombo,
                     "Upgrades Purchased": upgradesPurchased,
                   }),
                   Container(
