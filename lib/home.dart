@@ -150,19 +150,19 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Consumer<AppSettings>(
                   builder: (context, settings, _) {
                     return GestureDetector(
-                      onTapDown: (_) {
+                      onTapDown: (_) async {
                         if (settings.animationsEnabled) {
                           setState(() {
                             _imageSize = 295;
                           });
                         }
+                        await SoundManager.playClickSound();
                       },
                       onTapUp: (_) async {
                         setState(() {
                           _imageSize = 300;
                         });
                         await incrementCounter();
-                        await SoundManager.playClickSound();
                       },
                       onTapCancel: () {
                         if (settings.animationsEnabled) {

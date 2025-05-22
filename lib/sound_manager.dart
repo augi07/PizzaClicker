@@ -2,7 +2,10 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SoundManager {
-  static final AudioPlayer _player = AudioPlayer();
+  static const int _poolSize = 5; // Cuántos reproductores tener listos
+  static final List<AudioPlayer> _players =
+      List.generate(_poolSize, (_) => AudioPlayer());
+  static int _currentIndex = 0;
 
   static Future<void> playClickSound() async {
     final prefs = await SharedPreferences.getInstance();
@@ -11,7 +14,11 @@ class SoundManager {
 
     if (!enabled) return;
 
-    await _player.setVolume(volume);
-    await _player.play(AssetSource('sounds/Click.mp3'));
+    final player = _players[_currentIndex];
+    _currentIndex = (_currentIndex + 1) % _poolSize;
+
+    await player.stop();
+    await player.setVolume(volume);
+    await player.play(AssetSource('sounds/Click.mp3'));
   }
 }
