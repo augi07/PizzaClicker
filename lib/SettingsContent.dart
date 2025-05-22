@@ -3,6 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
 import 'app_settings.dart';
 
+
 class SettingsContent extends StatefulWidget {
   final VoidCallback onReset;
 
@@ -107,6 +108,8 @@ class _SettingsContentState extends State<SettingsContent> {
               child: Slider(
                 activeColor: Colors.black,
                 value: volume,
+                min: 0.0,
+                max: 1.0,
                 onChanged: (val) {
                   setState(() => volume = val);
                   _updateDouble('volume', val);

@@ -6,6 +6,7 @@ import 'StatsContent.dart';
 import 'InfoContent.dart';
 import 'SettingsContent.dart';
 import 'app_settings.dart';
+import 'sound_manager.dart';
 
 
 class MyHomePage extends StatefulWidget {
@@ -156,11 +157,12 @@ class _MyHomePageState extends State<MyHomePage> {
                           });
                         }
                       },
-                      onTapUp: (_) {
+                      onTapUp: (_) async {
                         setState(() {
                           _imageSize = 300;
-                          incrementCounter();
                         });
+                        await incrementCounter();
+                        await SoundManager.playClickSound();
                       },
                       onTapCancel: () {
                         if (settings.animationsEnabled) {
