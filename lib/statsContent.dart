@@ -37,11 +37,11 @@ class _StatsContentState extends State<StatsContent> {
       case 3:
         pizzasPerClick += 20;
       case 4:
-        pizzasPerClick *= 2;
+        pizzasPerClick += 1000;
       case 5:
-        pizzasPerClick *= 15;
+        pizzasPerClick += 10000;
       case 6:
-        pizzasPerClick *= 100;
+        pizzasPerClick += 100000;
     }
 
     await prefs.setInt('totalPizzas', totalPizzas);
@@ -170,9 +170,9 @@ class _StatsContentState extends State<StatsContent> {
                         upgradeOption("Double Click", "+1 per click", 50, 1),
                         upgradeOption("Golden Pizza", "+10 per click", 500, 2),
                         upgradeOption("Super Click", "+20 per click", 10000, 3),
-                        upgradeOption("Mega Multiplier", "x2 per click", 100000, 4),
-                        upgradeOption("Ultra Multiplier", "x15 per click", 200000, 5),
-                        upgradeOption("Clickstorm", "x100 per click", 9999999, 6),
+                        upgradeOption("Mega Multiplier", "+1000 per click", 100000, 4),
+                        upgradeOption("Ultra Multiplier", "+10000 per click", 200000, 5),
+                        upgradeOption("Clickstorm", "+100000 per click", 9999999, 6),
                       ],
                     ),
                   ),
