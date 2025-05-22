@@ -16,6 +16,7 @@ dependencies:
   provider: ^6.1.2
   counter: ^0.2.2
   shared_preferences: ^2.5.3  
+  audioplayers: ^6.4.0
 
 dev_dependencies:
   flutter_test:
@@ -27,3 +28,4 @@ flutter:
   uses-material-design: true
   assets:
     - assets/Pizza.png
+    - assets/sounds/click.mp3
