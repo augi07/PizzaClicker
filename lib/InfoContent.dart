@@ -78,7 +78,7 @@ class InfoContent extends StatelessWidget {
             ),
 
             Container(
-              alignment: Alignment.topCenter,
+              alignment: Alignment.topLeft,
               margin: const EdgeInsets.only(top: 20),
               width: 320,
               height: 200,
@@ -91,7 +91,7 @@ class InfoContent extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
-                    'Reach out to me',
+                    'How to Play\n',
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
@@ -99,7 +99,7 @@ class InfoContent extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'About Pizza Clicker',
+                    '• Tap the pizza to earn pizzas \n• Build combos by tapping quickly \n• Buy upgrades to earn more pizzas \n• Unlock achievements as you play \n• Try to get as many pizzas as possible!',
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w400,
@@ -111,10 +111,10 @@ class InfoContent extends StatelessWidget {
             ),
 
             Container(
-              alignment: Alignment.topCenter,
+              alignment: Alignment.topLeft,
               margin: const EdgeInsets.only(top: 20),
               width: 320,
-              height: 200,
+              height: 250,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(10)),
                 color: containerColor,
@@ -124,7 +124,7 @@ class InfoContent extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
-                    'Documentation',
+                    'Tips & Tricks\n',
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
@@ -132,7 +132,7 @@ class InfoContent extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'About Pizza Clicker',
+                    '• Build combos for faster pizza earning \n• Invest in Auto Clicker early for passive income \n• Save up for Golden Pizza for maximum clicking power \n• Keep clicking even after buying upgrades',
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w400,
