@@ -7,7 +7,7 @@ class InfoContent extends StatelessWidget {
     final containerColor = isDark ? Colors.grey[850] : Colors.white;
     final textColor = isDark ? Colors.white : Colors.black;
 
-    return Center(
+    return SafeArea(
       child: SingleChildScrollView(
         child: Column(
           children: [
@@ -18,7 +18,7 @@ class InfoContent extends StatelessWidget {
               height: 200,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(10)),
-                color: containerColor,
+                color: isDark ? Colors.black : Colors.white,
               ),
               padding: const EdgeInsets.only(left: 10.0, top: 8.0),
               child: Column(
@@ -51,7 +51,7 @@ class InfoContent extends StatelessWidget {
               height: 220,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(10)),
-                color: containerColor,
+                color: isDark ? Colors.black : Colors.white,
               ),
               padding: const EdgeInsets.only(left: 10.0, top: 8.0),
               child: Column(
@@ -84,7 +84,7 @@ class InfoContent extends StatelessWidget {
               height: 200,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(10)),
-                color: containerColor,
+                color: isDark ? Colors.black : Colors.white,
               ),
               padding: const EdgeInsets.only(left: 10.0, top: 8.0),
               child: Column(
@@ -117,7 +117,7 @@ class InfoContent extends StatelessWidget {
               height: 250,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(10)),
-                color: containerColor,
+                color: isDark ? Colors.black : Colors.white,
               ),
               padding: const EdgeInsets.only(left: 10.0, top: 8.0),
               child: Column(

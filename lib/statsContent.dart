@@ -65,7 +65,7 @@ class _StatsContentState extends State<StatsContent> {
       width: 320,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: isDark ? Colors.grey[850] : Colors.white,
+        color: isDark ? Colors.black : Colors.white,
       ),
       padding: const EdgeInsets.all(10),
       child: Column(
@@ -156,7 +156,7 @@ class _StatsContentState extends State<StatsContent> {
                     width: 320,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      color: isDark ? Colors.grey[850] : Colors.white,
+                      color: isDark ? Colors.black : Colors.white,
                     ),
                     padding: const EdgeInsets.all(10),
                     child: Column(

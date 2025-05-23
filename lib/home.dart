@@ -78,7 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               child: NavigationBar(
                 indicatorColor: Colors.transparent,
-                backgroundColor: Color.fromARGB(255, 48, 48, 48),
+                backgroundColor: Colors.black,
                 height: 60,
                 selectedIndex: currentPageIndex,
                 onDestinationSelected: (int index) async {

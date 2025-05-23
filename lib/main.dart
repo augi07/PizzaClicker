@@ -18,6 +18,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final customDarkTheme = ThemeData(
+      brightness: Brightness.dark,
+      scaffoldBackgroundColor: Color.fromARGB(255, 48, 48, 48), // your custom dark background
+    );
+
+
     return ChangeNotifierProvider.value(
       value: settings,
       child: Consumer<AppSettings>(
@@ -25,7 +32,7 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: ThemeData.light(),
-            darkTheme: ThemeData.dark(),
+            darkTheme: customDarkTheme,
             themeMode: settings.isDarkMode ? ThemeMode.dark : ThemeMode.light,
             builder: (context, child) {
               return settings.animationsEnabled

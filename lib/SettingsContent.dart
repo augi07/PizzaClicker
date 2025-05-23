@@ -56,7 +56,7 @@ class _SettingsContentState extends State<SettingsContent> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return SafeArea(
       child: SingleChildScrollView(
         child: Column(
           children: [
@@ -106,7 +106,7 @@ class _SettingsContentState extends State<SettingsContent> {
           children: [
             Expanded(
               child: Slider(
-                activeColor: Colors.black,
+                activeColor: Color.fromARGB(255, 48, 48, 48),
                 value: volume,
                 min: 0.0,
                 max: 1.0,
@@ -158,7 +158,7 @@ class _SettingsContentState extends State<SettingsContent> {
       children: [
         Text(label, style: TextStyle(fontSize: 16, color: textColor)),
         Switch(
-          activeTrackColor: Colors.black,
+          activeTrackColor: Color.fromARGB(255, 48, 48, 48),
           value: value,
           onChanged: onChanged,
         ),
@@ -182,7 +182,7 @@ class _SettingsContentState extends State<SettingsContent> {
       height: height,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(10)),
-        color: isDark ? Colors.grey[850] : Colors.white,
+        color: isDark ? Colors.black : Colors.white,
       ),
       padding: padding,
       child: Column(
