@@ -17,6 +17,7 @@ dependencies:
   counter: ^0.2.2
   shared_preferences: ^2.5.3  
   audioplayers: ^6.4.0
+  flutter_launcher_icons: ^0.14.3
 
 dev_dependencies:
   flutter_test:
@@ -29,3 +30,7 @@ flutter:
   assets:
     - assets/Pizza.png
     - assets/sounds/click.mp3
+
+flutter_launcher_icons:
+  ios: true
+  image_path: "assets/Pizza.png"
