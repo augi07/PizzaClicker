@@ -19,6 +19,6 @@ class SoundManager {
 
     await player.stop();
     await player.setVolume(volume);
-    await player.play(AssetSource('assets/sounds/Click.mp3'));
+    await player.play(AssetSource('sounds/click.mp3'));
   }
 }
