@@ -58,14 +58,16 @@ class _SettingsContentState extends State<SettingsContent> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: SingleChildScrollView(
-        child: Column(
-          children: [
-            _buildAppearanceSettings(),
-            _buildSoundSettings(),
-            _buildGameSettings(),
-          ],
+        child: Center(
+          child: Column(
+            children: [
+              _buildAppearanceSettings(),
+              _buildSoundSettings(),
+              _buildGameSettings(),
+            ],
+          ),
         ),
-      ),
+      )
     );
   }
 

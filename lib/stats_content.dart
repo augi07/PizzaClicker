@@ -139,47 +139,49 @@ class _StatsContentState extends State<StatsContent> {
         totalPizzas = prefs.getInt('totalPizzas') ?? 0;
 
         return SafeArea(
-          child: Center(
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  statCard("Pizza Stats", {
-                    "Total Pizzas": totalPizzas,
-                    "Pizzas per Click": pizzasPerClick,
-                  }),
-                  statCard("Achievements", {
-                    "Upgrades Purchased": upgradesPurchased,
-                  }),
-                  Container(
-                    margin: const EdgeInsets.only(top: 20),
-                    width: 320,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: isDark ? Colors.black : Colors.white,
+          child: SingleChildScrollView(
+            child: Center(
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    statCard("Pizza Stats", {
+                      "Total Pizzas": totalPizzas,
+                      "Pizzas per Click": pizzasPerClick,
+                    }),
+                    statCard("Achievements", {
+                      "Upgrades Purchased": upgradesPurchased,
+                    }),
+                    Container(
+                      margin: const EdgeInsets.only(top: 20),
+                      width: 320,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: isDark ? Colors.black : Colors.white,
+                      ),
+                      padding: const EdgeInsets.all(10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text("Upgrades",
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600,
+                                  color: isDark ? Colors.white : Colors.black)),
+                          upgradeOption("Double Click", "+1 per click", 50, 1),
+                          upgradeOption("Golden Pizza", "+10 per click", 500, 2),
+                          upgradeOption("Super Click", "+20 per click", 10000, 3),
+                          upgradeOption("Mega Multiplier", "+1000 per click", 100000, 4),
+                          upgradeOption("Ultra Multiplier", "+10000 per click", 200000, 5),
+                          upgradeOption("Clickstorm", "+100000 per click", 9999999, 6),
+                        ],
+                      ),
                     ),
-                    padding: const EdgeInsets.all(10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text("Upgrades",
-                            style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
-                                color: isDark ? Colors.white : Colors.black)),
-                        upgradeOption("Double Click", "+1 per click", 50, 1),
-                        upgradeOption("Golden Pizza", "+10 per click", 500, 2),
-                        upgradeOption("Super Click", "+20 per click", 10000, 3),
-                        upgradeOption("Mega Multiplier", "+1000 per click", 100000, 4),
-                        upgradeOption("Ultra Multiplier", "+10000 per click", 200000, 5),
-                        upgradeOption("Clickstorm", "+100000 per click", 9999999, 6),
-                      ],
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
+          )
         );
       },
     );
