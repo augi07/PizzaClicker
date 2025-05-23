@@ -3,8 +3,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
 
 import 'StatsContent.dart';
-import 'InfoContent.dart';
-import 'SettingsContent.dart';
+import 'info_content.dart';
+import 'settings_content.dart';
 import 'app_settings.dart';
 import 'sound_manager.dart';
 
